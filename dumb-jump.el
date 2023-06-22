@@ -1934,7 +1934,7 @@ Optionally pass t for RUN-NOT-TESTS to see a list of all failed rules"
      (lambda (rule)
        (-mapcat
         (lambda (test)
-          (let* ((cmd (concat "git grep --color=never -h --untracked -E  "
+          (let* ((cmd (concat "git grep --color=never -h --untracked -P  "
                               (shell-quote-argument (dumb-jump-populate-regex (plist-get rule :regex) "test" 'git-grep))))
                  (resp (dumb-jump-run-git-grep-test test cmd)))
             (when (or
@@ -2962,7 +2962,7 @@ Using ag to search only the files found via git-grep literal symbol search."
                         " --untracked")
                       (when (not (s-blank? dumb-jump-git-grep-search-args))
                         (concat " " dumb-jump-git-grep-search-args))
-                      " -E"))
+                      " -P"))
          (fileexps (s-join " " (or (--map (shell-quote-argument (format "%s/*.%s" proj it)) ggtypes) '(":/"))))
          (exclude-args (s-join " "
                                (--map (shell-quote-argument (concat ":(exclude)" it))
